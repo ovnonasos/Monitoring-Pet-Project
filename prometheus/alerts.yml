@@ -1,0 +1,11 @@
+groups:
+  - name: node-exporter alerts
+    rules:
+      - alert: HighCPUUsage
+        expr: rate(node_cpu_seconds_total{mode="user"}[1m]) > 0.2
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected on {{ $labels.instance }}"
+          description: "CPU usage is over 20% for 30 seconds."
